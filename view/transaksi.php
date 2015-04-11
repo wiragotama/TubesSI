@@ -1,3 +1,12 @@
+<?php
+
+  session_start();
+	require_once('../controller/db_helper.php');
+	require_once('../controller/transaksi_helper.php');
+	$users = get_all_user();
+	$pelayanans = get_all_pelayanan();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,31 +31,8 @@
 	<body data-spy="scroll" data-target=".navbar-collapse">
 
 		<!-- start navigation -->
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container">
-				<div class="row">
-					<div class="navbar-header">
-						<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-							<span class="icon icon-bar"></span>
-							<span class="icon icon-bar"></span>
-							<span class="icon icon-bar"></span>
-						</button>
-						<a href="#" class="navbar-brand"><h3>Sunan</h3></a>
-					</div>
-					<div class="collapse navbar-collapse">
-						<ul class="nav navbar-nav navbar-right">
-							<!-- inget bagian ini harus disesuaikan dengan role base access control, diatur pake session aja-->
-							<li><a id="currentPage" href="#" class="smoothScroll">TRANSAKSI</a></li>
-							<li><a href="#" class="smoothScroll">PINJAMAN</a></li>
-							<li><a href="#" class="smoothScroll">REKAP BON</a></li>
-							<li><a href="#" class="smoothScroll">PENGGAJIAN</a></li>
-							<li><a href="#" class="smoothScroll">INVENTARIS</a></li>
-							<li><a href="#" class="smoothScroll">LOGOUT</a></li>
-						</ul>
-					</div>
-				</div>				
-			</div>
-		</nav>
+		<?php require_once('navbar.php'); ?>
+		
 		<!-- end navigation -->
 
 		<!-- start home -->
@@ -100,29 +86,36 @@
 					<div class="page-header">
 					   <h1> Payment </h1>
 					</div>
-					<form id="form transaksi" onclick="validateScript" onsubmit="#PHP" class="form-inline">
+					<form method="post" action="../controller/save_transaksi.php" id="form transaksi" onclick="validateScript" onsubmit="#PHP" class="form-inline">
 						<div class="row" id="transaksi-record-1">
 							<div class="col-xs-2">
-								<select class="form-control">
-									<!--bagian ini diganti pake PHP -->
-									<option> cuci rambut </option>
-									<option> cat rambut </option>
-									<option> massage </option>
-									<option> dll </option>
+							
+								<select class="form-control" id="Pelayanan" name="Pelayanan">
+								<?php
+								foreach ($pelayanans as $pelayanan) {
+								echo 
+								'			<option value="'.$pelayanan['id_pelayanan'].'">'.$pelayanan['nama'].'</option>
+								';
+								}
+								?>	
 								</select>
+							
 							</div>
 
+				
 							<div class="col-xs-3">
-							    <input type="text" class="form-control" placeholder="jumlah orang">
+							    <input type="text" name="Jumlah" id="Jumlah" class="form-control" placeholder="jumlah orang">
 							</div>
 							
 							<div class="col-xs-3">
-								<select class="form-control">
-									<!--bagian ini diganti pake PHP -->
-									<option> Mba xxx </option>
-									<option> Darwin </option>
-									<option> Melvin </option>
-									<option> dll </option>
+								<select class="form-control" id="User" name="User">
+								<?php
+								foreach ($users as $user) {
+								echo 
+								'			<option value="'.$user['id_user'].'">'.$user['nama'].'</option>
+								';
+								}
+								?>	
 								</select>
 							</div>
 						</div>
@@ -136,13 +129,13 @@
 						<hr> </hr>
 						<div class="row">
 							<div id="formButtonsArea">
-								<button type="button" class="btn btn-primary"> Add </button>
-								<span>
-									<input type="submit" class="btn btn-success"> </input>
-								</span>
+								<button type="submit" class="btn btn-primary"> Add </button>
+								
+					</form>
+							<input type="submit" class="btn btn-success"> </input>
+							
 							</div>
 						</div>
-					</form>
 				</div>
 			</div>
 		</section>
