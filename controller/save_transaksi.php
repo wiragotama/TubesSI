@@ -22,6 +22,7 @@ $mysqli = new mysqli("localhost", "root", "", "tubessi");
 		exit();
 	}
 
+	/*
 	$result = $mysqli->query("SELECT harga FROM pelayanan WHERE id_pelayanan = '$pelayanan'");
 	$rows = array();
 	for ($i = 0; $i < $result->num_rows; ++$i) {
@@ -29,7 +30,7 @@ $mysqli = new mysqli("localhost", "root", "", "tubessi");
 		
 		$rows[$i] = $row;
 		echo $row[$i];
-	}
+	}*/
 	
 	
 
@@ -40,7 +41,7 @@ VALUES ('', '$user', '$date', '0' ,'$pelayanan' ,'$jumlah')");
 mysqli_close($con);
 
 
-//header('Location: ../view/transaksi.php');
+header('Location: ../view/transaksi.php');
 ?>
 </body>
 </html>
