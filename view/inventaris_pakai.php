@@ -1,3 +1,10 @@
+<?php
+
+  session_start();
+	require_once('../controller/db_helper.php');
+	$inventarises = get_all_inventaris();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,17 +86,21 @@
 					   <h1> Pakai Barang </h1>
 					</div>
 					
-					<form id="formOrderBarang" onclick="validateScript" onsubmit="#PHP" class="form-inline">
+					<form method="post" id="formOrderBarang" action="../controller/pakai_inventaris.php" class="form-inline">
 						<div class="row" id="transaksi-record-1">
 							<div class="col-xs-3">
-							    <select class="form-control">
-									<!--bagian ini diganti pake PHP -->
-									<option> Shampoo anti dandruf </option>
-									<option> Shampoo anti galau </option>
+							    <select name="NamaInventaris" class="form-control">
+									<?php
+									foreach ($inventarises as $inventaris) {
+									echo 
+									'			<option value="'.$inventaris['id_inventaris'].'">'.$inventaris['nama'].'</option>
+									';
+									}
+									?>	
 								</select>
 							</div> 
 							<div class="col-xs-3">
-							    <input type="text" class="form-control" placeholder="jumlah barang">
+							    <input name="JumBarang" type="text" class="form-control" placeholder="jumlah barang">
 							</div>
 						</div>
 
