@@ -88,65 +88,71 @@
 						        <th>Ongkos (Rp)</th>
 					      	</tr>
 				   		</thead>
-				   		<tbody>
-					      	<tr>	
-					      		<td>Wira</td>
-						        <td>Gunting Rambut</td>
-						        <td>1 maret 2015</td>
-						        <td>100.000</td>
-				     		<tr>
-				   		</tbody>
-				   		<tbody>
-					      	<tr>
-					      		<td>Melvin</td>
-						        <td>Cuci Rambut</td>
-						        <td>1 maret 2015</td>
-						        <td>10.000</td>
-				     		<tr>
-				   		</tbody>
-				   		<tbody>
-					      	<tr>
-					      		<td>Melvin</td>
-						        <td>Cuci Rambut</td>
-						        <td>10 maret 2015</td>
-						        <td>10.000</td>
-				     		<tr>
-				   		</tbody>
-				   		<tbody>
-					      	<tr>	
-					      		<td>Wira</td>
-						        <td>Gunting Rambut</td>
-						        <td>11 maret 2015</td>
-						        <td>100.000</td>
-				     		<tr>
-				   		</tbody>
-				   		<tbody>
-					      	<tr>
-					      		<td>Darwim</td>
-						        <td>Massage</td>
-						        <td>11 maret 2015</td>
-						        <td>45.000</td>
-				     		<tr>
-				   		</tbody>
-				   		<tbody>
-					      	<tr>
-					      		<td>Darwim</td>
-						        <td>Massage</td>
-						        <td>15 maret 2015</td>
-						        <td>45.000</td>
-				     		<tr>
-				   		</tbody>
-				   		<tbody>
-					      	<tr>
-					      		<td>Melvin</td>
-						        <td>Cuci Rambut</td>
-						        <td>15 maret 2015</td>
-						        <td>10.000</td>
-				     		<tr>
-				   		</tbody>
+				   		<?php
+							$gajiDasar = 1200000;
+							$arrayName = array();
+							$arrayTotalGaji = array();
+							
+				   			$myfile = fopen("../controller/logged.txt", "r") or die("Unable to open file!");
+							$username = fgets($myfile);
+							$id_logged = fgets($myfile);
+							$role = fgets($myfile);
+							fclose($myfile);
+
+				   			$con=mysqli_connect("localhost","root","","tubessi");
+							// Check connection
+							if (mysqli_connect_errno()) {
+							  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							}
+							else {							
+								$before = "nothing";
+								$idx = 0;
+								
+								$result = mysqli_query($con, "SELECT * from transaksi_record where tergaji=0 ORDER BY id_record, tanggal");
+								while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+									$id_petugas = $row["id_petugas"];
+									$id_pelayanan = $row["id_pelayanan"];
+
+									$l = mysqli_query($con, "SELECT * from user where id_user=".$id_petugas);
+									while ($r = mysqli_fetch_array($l, MYSQL_ASSOC)) {
+										$nama = $r["nama"];			
+									}
+									
+									$x = mysqli_query($con, "SELECT * from pelayanan where id_pelayanan=".$id_pelayanan);
+									while ($p = mysqli_fetch_array($x, MYSQL_ASSOC)) {
+										$pelayanan = $p["nama"];		
+									}				
+									
+									$y = mysqli_query($con, "SELECT * from pelayanan where id_pelayanan=".$id_pelayanan);
+									while ($q = mysqli_fetch_array($y, MYSQL_ASSOC)) {
+										$ongkos = $q["harga"]*0.3;	
+									}	
+									
+									$tanggal = $row["tanggal"];
+									if ($nama == $before) {
+										$arrayTotalGaji[$idx] += $ongkos;
+									}
+									else {
+										array_push($arrayName, $nama);
+										array_push($arrayTotalGaji, $gajiDasar);
+									}
+									
+									echo "<tbody>";
+									echo "<tr>";
+									echo "<td>".$nama."</td>";
+									echo "<td>".$pelayanan."</td>";
+									echo "<td>".$tanggal."</td>";
+									echo "<td>".$ongkos."</td>";
+									echo "</tr>";
+									echo "</tbody>";
+									
+									$before = $nama;
+								}
+							}
+				echo '
 					</table>
 				</div>
-
+				
 				<div class="row">
 					<div class="page-header">
 					   <h1> Rekap Bulanan </h1>
@@ -158,28 +164,20 @@
 						        <th>Nama Pegawai</th>
 						        <th>Total Gaji (Rp)</th>
 					      	</tr>
-				   		</thead>
-				   		<tbody>
-					      	<tr>	
-					      		<td>Wira</td>
-						        <td>199.000</td>
-				     		<tr>
-				   		</tbody>
-				   		<tbody>
-					      	<tr>
-					      		<td>Melvin</td>
-						        <td>29.000</td>
-				     		<tr>
-				   		</tbody>
-				   		<tbody>
-					      	<tr>
-					      		<td>Darwim</td>
-						        <td>90.000</td>
-				     		<tr>
-				   		</tbody>
-					</table>
-				</div>
-
+				   		</thead>';
+						$idx = 0;
+				   		foreach ($arrayName as $key => $value) {
+							echo '<tbody>';
+							echo '<tr>';
+							echo '<td>'.$value.'</td>';
+							echo '<td>'.$arrayTotalGaji[$idx].'</td>';
+							echo '</tr>';
+							echo '</tbody>';
+							$idx++;
+						}											
+					echo'</table>
+				 </div>';
+				?>
 				<form id="form transaksi" onclick="validateScript" onsubmit="#PHP" class="form-inline"> 
 					<div class="row">
 						<div id="formButtonsArea">
