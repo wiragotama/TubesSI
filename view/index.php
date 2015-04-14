@@ -21,15 +21,14 @@
 			
 		</div>
 
-		<form>
+		<form method="POST" action="../controller/login.php">
 			<li>
-				<input type="text" class="text" value="USERNAME" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}" ><a href="#" class=" icon user"></a>
+				<input name="username" type="text" class="text" value="USERNAME" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}" ><a href="#" class=" icon user"></a>
 			</li>
 			<li>
-				<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}"><a href="#" class=" icon lock"></a>
+				<input name="password" type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}"><a href="#" class=" icon lock"></a>
 			</li>
 			<div class="p-container">
-						<label class="checkbox"><input type="checkbox" name="checkbox" checked><i></i>Remember Me</label>
 						<input type="submit" onclick="myFunction()" value="SIGN IN" >
 					<div class="clear"> </div>
 			</div>

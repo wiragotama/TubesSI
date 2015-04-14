@@ -1,6 +1,4 @@
 <?php
-
-  session_start();
 	require_once('../controller/db_helper.php');
 	$inventarises = get_all_inventaris();
 ?>

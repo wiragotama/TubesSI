@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 11, 2015 at 08:16 AM
+-- Host: localhost
+-- Generation Time: Apr 14, 2015 at 07:13 AM
 -- Server version: 5.6.16
--- PHP Version: 5.5.11
+-- PHP Version: 5.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `tubessi`
 --
+CREATE DATABASE IF NOT EXISTS `tubessi` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `tubessi`;
 
 -- --------------------------------------------------------
 
@@ -101,7 +103,21 @@ CREATE TABLE IF NOT EXISTS `transaksi_payment` (
   PRIMARY KEY (`id_payment`,`id_record`),
   KEY `id_kasir` (`id_kasir`),
   KEY `id_record` (`id_record`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+
+--
+-- Dumping data for table `transaksi_payment`
+--
+
+INSERT INTO `transaksi_payment` (`id_payment`, `total_dibayarkan`, `id_kasir`, `id_record`) VALUES
+(1, 0, 1, 1),
+(1, 50000, 1, 71),
+(2, 50000, 1, 71),
+(3, 50000, 1, 71),
+(4, 50000, 1, 71),
+(5, 50000, 1, 71),
+(6, 50000, 1, 71),
+(7, 50000, 1, 71);
 
 -- --------------------------------------------------------
 
@@ -121,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_record` (
   KEY `id_petugas_2` (`id_petugas`),
   KEY `id_petugas_3` (`id_petugas`),
   KEY `id_pelayanan` (`id_pelayanan`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=72 ;
 
 --
 -- Dumping data for table `transaksi_record`
@@ -129,13 +145,16 @@ CREATE TABLE IF NOT EXISTS `transaksi_record` (
 
 INSERT INTO `transaksi_record` (`id_record`, `id_petugas`, `tanggal`, `harga_total`, `id_pelayanan`, `jumlah_dilayani`) VALUES
 (1, 1, '2015-04-08', 50000, 1, 1),
-(2, 1, '2015-04-09', 4, 2, 9),
-(17, 1, '2015-04-11', 0, 1, 3),
-(18, 1, '2015-04-11', 0, 1, 3),
-(19, 1, '2015-04-11', 0, 1, 3),
-(20, 1, '2015-04-11', 0, 1, 3),
-(21, 1, '2015-04-11', 0, 1, 3),
-(22, 1, '2015-04-11', 0, 1, 3);
+(40, 1, '2015-04-14', 40000, 2, 32),
+(41, 1, '2015-04-14', 40000, 2, 32),
+(42, 1, '2015-04-14', 50000, 1, 1),
+(43, 1, '2015-04-14', 50000, 1, 1),
+(44, 1, '2015-04-14', 50000, 1, 1),
+(45, 1, '2015-04-14', 50000, 1, 1),
+(46, 1, '2015-04-14', 50000, 1, 1),
+(57, 1, '2015-04-14', 50000, 1, 1),
+(58, 1, '2015-04-14', 40000, 2, 2),
+(71, 1, '2015-04-14', 50000, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -151,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `role` varchar(10) NOT NULL DEFAULT 'karyawan',
   `isActive` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `user`
@@ -159,11 +178,19 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `nama`, `role`, `isActive`) VALUES
 (1, 'melvin', 'fonda', 'melvin fonda', 'karyawan', 1),
-(2, 'darwin', 'prasetio', 'darwin prasetio', 'karyawan', 1);
+(2, 'darwin', 'prasetio', 'darwin prasetio', 'karyawan', 1),
+(5, 'wira', '12345', 'wira', 'pemilik', 1),
+(6, 'ganteng', '12345', 'ganteng', 'akuntan', 1);
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `kas bon`
+--
+ALTER TABLE `kas bon`
+  ADD CONSTRAINT `kas bon_ibfk_1` FOREIGN KEY (`id_peminjam`) REFERENCES `user` (`id_user`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `transaksi_payment`
@@ -177,12 +204,6 @@ ALTER TABLE `transaksi_payment`
 --
 ALTER TABLE `transaksi_record`
   ADD CONSTRAINT `transaksi_record_ibfk_1` FOREIGN KEY (`id_pelayanan`) REFERENCES `pelayanan` (`id_pelayanan`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `kas bon` (`id_peminjam`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

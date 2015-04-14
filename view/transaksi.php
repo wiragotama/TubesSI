@@ -1,8 +1,5 @@
 <?php
-
-  session_start();
 	require_once('../controller/db_helper.php');
-	require_once('../controller/transaksi_helper.php');
 	$users = get_all_user();
 	$pelayanans = get_all_pelayanan();
 ?>
