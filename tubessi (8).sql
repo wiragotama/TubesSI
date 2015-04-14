@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 14, 2015 at 07:13 AM
+-- Generation Time: Apr 14, 2015 at 10:15 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.4.16
 
@@ -58,15 +58,14 @@ CREATE TABLE IF NOT EXISTS `kas bon` (
   `tanggal` date NOT NULL,
   PRIMARY KEY (`id_bon`),
   KEY `id_peminjam` (`id_peminjam`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `kas bon`
 --
 
 INSERT INTO `kas bon` (`id_bon`, `id_peminjam`, `jumlah`, `tanggal`) VALUES
-(1, 1, 200000, '2015-04-01'),
-(2, 2, 30000, '2015-04-07');
+(8, 1, 2000, '2015-04-14');
 
 -- --------------------------------------------------------
 
@@ -132,6 +131,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_record` (
   `harga_total` int(11) NOT NULL,
   `id_pelayanan` int(11) NOT NULL,
   `jumlah_dilayani` int(11) NOT NULL DEFAULT '1',
+  `tergaji` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_record`),
   KEY `id_petugas` (`id_petugas`),
   KEY `id_petugas_2` (`id_petugas`),
@@ -143,18 +143,18 @@ CREATE TABLE IF NOT EXISTS `transaksi_record` (
 -- Dumping data for table `transaksi_record`
 --
 
-INSERT INTO `transaksi_record` (`id_record`, `id_petugas`, `tanggal`, `harga_total`, `id_pelayanan`, `jumlah_dilayani`) VALUES
-(1, 1, '2015-04-08', 50000, 1, 1),
-(40, 1, '2015-04-14', 40000, 2, 32),
-(41, 1, '2015-04-14', 40000, 2, 32),
-(42, 1, '2015-04-14', 50000, 1, 1),
-(43, 1, '2015-04-14', 50000, 1, 1),
-(44, 1, '2015-04-14', 50000, 1, 1),
-(45, 1, '2015-04-14', 50000, 1, 1),
-(46, 1, '2015-04-14', 50000, 1, 1),
-(57, 1, '2015-04-14', 50000, 1, 1),
-(58, 1, '2015-04-14', 40000, 2, 2),
-(71, 1, '2015-04-14', 50000, 1, 1);
+INSERT INTO `transaksi_record` (`id_record`, `id_petugas`, `tanggal`, `harga_total`, `id_pelayanan`, `jumlah_dilayani`, `tergaji`) VALUES
+(1, 1, '2015-04-08', 50000, 1, 1, 1),
+(40, 1, '2015-04-14', 40000, 2, 32, 1),
+(41, 1, '2015-04-14', 40000, 2, 32, 1),
+(42, 1, '2015-04-14', 50000, 1, 1, 1),
+(43, 1, '2015-04-14', 50000, 1, 1, 1),
+(44, 1, '2015-04-14', 50000, 1, 1, 1),
+(45, 1, '2015-04-14', 50000, 1, 1, 1),
+(46, 1, '2015-04-14', 50000, 1, 1, 1),
+(57, 1, '2015-04-14', 50000, 1, 1, 1),
+(58, 1, '2015-04-14', 40000, 2, 2, 1),
+(71, 1, '2015-04-14', 50000, 1, 1, 1);
 
 -- --------------------------------------------------------
 

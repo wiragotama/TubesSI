@@ -170,7 +170,15 @@
 							echo '<tbody>';
 							echo '<tr>';
 							echo '<td>'.$value.'</td>';
-							echo '<td>'.$arrayTotalGaji[$idx].'</td>';
+							$result = mysqli_query($con, "SELECT SUM(jumlah) as total_hutang FROM `kas bon` join user ON (`kas bon`.id_peminjam=`user`.id_user) where nama='".$value."'");
+							$totalHutang = 0;
+							if ($result!=NULL) {
+								while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+									$totalHutang = $row["total_hutang"];
+								}
+							}
+							$x = $arrayTotalGaji[$idx] - $totalHutang;
+							echo '<td>'.$x.'</td>';
 							echo '</tr>';
 							echo '</tbody>';
 							$idx++;
@@ -178,10 +186,10 @@
 					echo'</table>
 				 </div>';
 				?>
-				<form id="form transaksi" onclick="validateScript" onsubmit="#PHP" class="form-inline"> 
+				<form id="form transaksi" method="post" action="../controller/bayarkanGaji.php" onclick="validateScript" onsubmit="#PHP" class="form-inline"> 
 					<div class="row">
 						<div id="formButtonsArea">
-							<button type="button" class="btn btn-success"> Bayarkan Gaji </button>
+							<button type="submit" class="btn btn-success"> Bayarkan Gaji </button>
 						</div>
 					</div>
 				</form>
