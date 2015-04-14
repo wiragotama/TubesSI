@@ -86,6 +86,10 @@
 					<div class="page-header">
 					   <h1> Payment </h1>
 					</div>
+
+					<?php
+					    showTransaksiRecord();
+					?>
 					<form method="post" action="../controller/save_transaksi.php" id="form transaksi" onclick="validateScript" onsubmit="#PHP" class="form-inline">
 						<div class="row" id="transaksi-record-1">
 							<div class="col-xs-2">
@@ -122,7 +126,7 @@
 
 						<div class="row">
 							<div id="totalPayment">
-								<label for="totalpayment"> Total payment : <label> <p id="totalharga"> </p>
+								<label for="totalpayment"> Total payment : <label> <p id="totalharga"> <?php $x=getTotalPayment(); echo $x; ?></p>
 							</div>
 						</div>
 
@@ -130,13 +134,14 @@
 						<div class="row">
 							<div id="formButtonsArea">
 								<button type="submit" class="btn btn-primary"> Add </button>
-								
-					</form>
-							<input type="submit" class="btn btn-success"> </input>
-							
 							</div>
 						</div>
-				</div>
+					</form>
+					<div class="row">
+						<div id="formButtonsArea">
+							<a href = "../controller/savepayment.php"> <button type="submit" class="btn btn-success"> Submit </button> </a>
+						</div>
+					</div>
 			</div>
 		</section>
 		<!-- end main body -->
