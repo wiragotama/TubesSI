@@ -1,3 +1,10 @@
+<?php
+
+  session_start();
+	require_once('../controller/db_helper.php');
+	$inventarises = get_all_inventaris();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,17 +85,16 @@
 					<div class="page-header">
 					   <h1> Order Inventaris Baru </h1>
 					</div>
-					
-					<form id="formOrderBarang" onclick="validateScript" onsubmit="#PHP" class="form-inline">
+					<form method="post" id="formOrderBarang" action="../controller/save_inventaris.php" class="form-inline">
 						<div class="row" id="transaksi-record-1">
 							<div class="col-xs-3">
-							    <input type="text" class="form-control" placeholder="nama barang">
+							    <input name=NamaBarang type="text" class="form-control" placeholder="nama barang">
 							</div> 
 							<div class="col-xs-3">
-							    <input type="text" class="form-control" placeholder="jumlah barang">
+							    <input name=JumlahBarang type="text" class="form-control" placeholder="jumlah barang">
 							</div>
 							<div class="col-xs-3">
-							    <input type="text" class="form-control" placeholder="harga satuan (Rp)">
+							    <input name=HargaBarang type="text" class="form-control" placeholder="harga satuan (Rp)">
 							</div>
 						</div>
 
@@ -106,17 +112,21 @@
 					   <h1> Tambah Barang </h1>
 					</div>
 					
-					<form id="formOrderBarang" onclick="validateScript" onsubmit="#PHP" class="form-inline">
+					<form method="post" id="formOrderBarang" action="../controller/tambah_inventaris.php" class="form-inline">
 						<div class="row" id="transaksi-record-1">
-							<div class="col-xs-3">
-							    <select class="form-control">
-									<!--bagian ini diganti pake PHP -->
-									<option> 1 </option>
-									<option> 2 </option>
+							<div class="col-xs-2">
+							    <select name="NamaInventaris" class="form-control">
+									<?php
+									foreach ($inventarises as $inventaris) {
+									echo 
+									'			<option value="'.$inventaris['id_inventaris'].'">'.$inventaris['nama'].'</option>
+									';
+									}
+									?>	
 								</select>
 							</div> 
 							<div class="col-xs-3">
-							    <input type="text" class="form-control" placeholder="jumlah barang">
+							    <input name="JumBarang" type="text" class="form-control" placeholder="jumlah barang">
 							</div>
 						</div>
 						<div class="row">
