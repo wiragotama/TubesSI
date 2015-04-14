@@ -1,6 +1,4 @@
 <?php
-	session_start();
-
 	$username = $_POST["username"];
 	$password = $_POST["password"];
 
@@ -11,7 +9,8 @@
 	}
 	else {
 		$result = mysqli_query($con, "SELECT * from user where username=\"".$username."\" and password=\"".$password."\"");
-		if ($result!=NULL) {
+		if (mysqli_num_rows($result) == 1) {
+			echo "cibai";
 			while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 				$id_logged = $row["id_user"];
 				$role = $row["role"];
@@ -33,8 +32,6 @@
 			}
 		}
 		else {
-			session_unset();
-			session_destroy();
 			header('Location: ../view/index.php');
 		}
 	}

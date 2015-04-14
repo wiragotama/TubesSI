@@ -75,17 +75,8 @@
 				<div class="row">
 					<div class="page-header">
 					   <h1> Data Pinjaman </h1>
-					   <p id="currentDateTime"> &nbspSekarang 16 Maret 2015, 10:00AM </p>
 					   <hr> </hr>
 						<!-- select bulan -->
-						<form id="dropdownBulanPenggajian" onsubmit="#PHP" class="form-inline">
-							<select class="form-control">
-								<option> Maret </option>
-								<option> April </option>
-								<option> Mei </option>
-								<option> Juni </option>
-							</select>
-						</form>
 					</div>
 					
 					<table class="table table-hover">
@@ -96,27 +87,47 @@
 						        <th>Pinjaman(Rp)</th>
 					      	</tr>
 				   		</thead>
-				   		<tbody>
-					      	<tr>	
-					      		<td>Wira</td>
-						        <td>1 maret 2015</td>
-						        <td>1000</td>
-				     		<tr>
-				   		</tbody>
-				   		<tbody>
-					      	<tr>
-					      		<td>Melvin</td>
-						        <td>1 maret 2015</td>
-						        <td>1000</td>
-				     		<tr>
-				   		</tbody>
+				   		<?php
+				   			$myfile = fopen("../controller/logged.txt", "r") or die("Unable to open file!");
+							$username = fgets($myfile);
+							$id_logged = fgets($myfile);
+							$role = fgets($myfile);
+							fclose($myfile);
+
+				   			$con=mysqli_connect("localhost","root","","tubessi");
+							// Check connection
+							if (mysqli_connect_errno()) {
+							  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							}
+							else {
+								$result = mysqli_query($con, "SELECT * from `kas bon` ORDER BY id_peminjam, tanggal");
+								while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+									$id_peminjam = $row["id_peminjam"];
+
+									$l = mysqli_query($con, "SELECT * from user where id_user=".$id_peminjam);
+									while ($r = mysqli_fetch_array($l, MYSQL_ASSOC)) {
+										$nama = $r["nama"];
+									}
+									
+									$tanggal = $row["tanggal"];
+									$jumlah = $row["jumlah"];
+
+									echo "<tbody>";
+									echo "<tr>";
+									echo "<td>".$nama."</td>";
+									echo "<td>".$tanggal."</td>";
+									echo "<td>".$jumlah."</td>";
+									echo "</tr>";
+									echo "</tbody>";
+								}
+							}
+				   		?>
 					</table>
 				</div>
 
 				<div class="row">
 					<div class="page-header">
-					   <h1> Rekap Bulanan </h1>
-					   <p id="currentDateTime"> &nbspSekarang 16 Maret 2015, 10:00AM </p>
+					   <h1> Rekap </h1>
 					</div>
 					
 					<table class="table table-hover">
@@ -126,18 +137,39 @@
 						        <th>Total Pinjaman (Rp)</th>
 					      	</tr>
 				   		</thead>
-				   		<tbody>
-					      	<tr>	
-					      		<td>Wira</td>
-						        <td>1000</td>
-				     		<tr>
-				   		</tbody>
-				   		<tbody>
-					      	<tr>
-					      		<td>Melvin</td>
-						        <td>1000</td>
-				     		<tr>
-				   		</tbody>
+				   		<?php
+				   			$myfile = fopen("../controller/logged.txt", "r") or die("Unable to open file!");
+							$username = fgets($myfile);
+							$id_logged = fgets($myfile);
+							$role = fgets($myfile);
+							fclose($myfile);
+
+				   			$con=mysqli_connect("localhost","root","","tubessi");
+							// Check connection
+							if (mysqli_connect_errno()) {
+							  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							}
+							else {
+								$result = mysqli_query($con, "SELECT id_peminjam, SUM(jumlah) as total  from `kas bon` GROUP BY id_peminjam");
+								while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+									$id_peminjam = $row["id_peminjam"];
+
+									$l = mysqli_query($con, "SELECT * from user where id_user=".$id_peminjam);
+									while ($r = mysqli_fetch_array($l, MYSQL_ASSOC)) {
+										$nama = $r["nama"];
+									}
+									
+									$jumlah = $row["total"];
+
+									echo "<tbody>";
+									echo "<tr>";
+									echo "<td>".$nama."</td>";
+									echo "<td>".$jumlah."</td>";
+									echo "</tr>";
+									echo "</tbody>";
+								}
+							}
+				   		?>
 					</table>
 				</div>
 			</div>

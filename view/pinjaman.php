@@ -84,24 +84,33 @@
 						         <th>Jumlah (Rp)</th>
 					      	</tr>
 				   		</thead>
-				   		<tbody>
-					      	<tr>
-						         <td>1 maret 2015</td>
-						         <td>100.000</td>
-				     		<tr>
-				   		</tbody>
-				   		<tbody>
-					      	<tr>
-						         <td>10 maret 2015</td>
-						         <td>200.000</td>
-				     		<tr>
-				   		</tbody>
-				   		<tbody>
-					      	<tr>
-						         <td>15 maret 2015</td>
-						         <td>15.000</td>
-				     		<tr>
-				   		</tbody>
+				   		<?php
+				   			$myfile = fopen("../controller/logged.txt", "r") or die("Unable to open file!");
+							$username = fgets($myfile);
+							$id_logged = fgets($myfile);
+							$role = fgets($myfile);
+							fclose($myfile);
+
+				   			$con=mysqli_connect("localhost","root","","tubessi");
+							// Check connection
+							if (mysqli_connect_errno()) {
+							  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							}
+							else {
+								$result = mysqli_query($con, "SELECT * from `kas bon` where id_peminjam=".$id_logged." ORDER BY tanggal ASC");
+								while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+									$tanggal = $row["tanggal"];
+									$jumlah = $row["jumlah"];
+
+									echo "<tbody>";
+									echo "<tr>";
+									echo "<td>".$tanggal."</td>";
+									echo "<td>".$jumlah."</td>";
+									echo "</tr>";
+									echo "</tbody>";
+								}
+							}
+				   		?>
 					</table>
 
 					<hr> </hr>
@@ -110,15 +119,15 @@
 					   <h1> Tambah Pinjaman </h1>
 					</div>
 					<!-- tambah pinjaman baru -->
-					<form id="form transaksi" onclick="validateScript" onsubmit="#PHP" class="form-inline"> 
+					<form method="POST" id="form transaksi" action="../controller/tambahPinjaman.php" onclick="validateScript" onsubmit="#PHP" class="form-inline"> 
 						<div class="row" id="transaksi-pinjaman">
 							<div class="col-xs-3">
-							    <input type="text" class="form-control" placeholder="jumlah pinjaman (Rp)">
+							    <input name="jumlah" type="text" class="form-control" placeholder="jumlah pinjaman (Rp)">
 							</div>
 						</div>
 						<div class="row">
 							<div id="formButtonsArea">
-								<button type="button" class="btn btn-success"> Submit </button>
+								<button type="submit" class="btn btn-success"> Submit </button>
 							</div>
 						</div>
 					</form>

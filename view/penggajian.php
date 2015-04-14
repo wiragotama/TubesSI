@@ -74,19 +74,9 @@
 			<div class="container">
 				<div class="row">
 					<div class="page-header">
-					   <h1> Data Penggajihan </h1>
-					   <p id="currentDateTime"> &nbspSekarang 16 Maret 2015, 10:00AM </p>
-					   <p id="lastBayarGaji"> &nbsp*Pembayaran gaji terakhir dilakukan pada 28 Februari 2015, 18.00PM</p>
+					   <h1> Data Penggajian </h1>
 					   <hr> </hr>
 						<!-- select bulan -->
-						<form id="dropdownBulanPenggajian" onsubmit="#PHP" class="form-inline">
-							<select class="form-control">
-								<option> Maret </option>
-								<option> April </option>
-								<option> Mei </option>
-								<option> Juni </option>
-							</select>
-						</form>
 					</div>
 					
 					<table class="table table-hover">
@@ -160,8 +150,6 @@
 				<div class="row">
 					<div class="page-header">
 					   <h1> Rekap Bulanan </h1>
-					   <p id="currentDateTime"> &nbspSekarang 16 Maret 2015, 10:00AM </p>
-					   <p>&nbsp*Gaji sudah dikurangi bon pada bulan yang bersangkutan </p>
 					</div>
 					
 					<table class="table table-hover">

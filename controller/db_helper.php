@@ -140,4 +140,5 @@ function get_all_inventaris() {
 
 	return $rows;
 }
+
 ?>
