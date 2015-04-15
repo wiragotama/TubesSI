@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 14, 2015 at 10:15 AM
+-- Generation Time: Apr 15, 2015 at 06:29 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.4.16
 
@@ -34,16 +34,17 @@ CREATE TABLE IF NOT EXISTS `inventaris` (
   `harga_satuan` int(11) NOT NULL,
   `jumlah_barang` int(11) NOT NULL,
   `tanggal_pembelian` date NOT NULL,
+  `jumlah_terpakai` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_inventaris`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `inventaris`
 --
 
-INSERT INTO `inventaris` (`id_inventaris`, `nama`, `harga_satuan`, `jumlah_barang`, `tanggal_pembelian`) VALUES
-(1, 'shampoo', 25000, 3, '2015-04-08'),
-(2, 'cat rambut', 50000, 2, '2015-04-07');
+INSERT INTO `inventaris` (`id_inventaris`, `nama`, `harga_satuan`, `jumlah_barang`, `tanggal_pembelian`, `jumlah_terpakai`) VALUES
+(1, 'shampoo', 25000, 3, '2015-04-08', 0),
+(2, 'cat rambut', 50000, 2, '2015-04-07', 0);
 
 -- --------------------------------------------------------
 
@@ -58,14 +59,16 @@ CREATE TABLE IF NOT EXISTS `kas bon` (
   `tanggal` date NOT NULL,
   PRIMARY KEY (`id_bon`),
   KEY `id_peminjam` (`id_peminjam`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `kas bon`
 --
 
 INSERT INTO `kas bon` (`id_bon`, `id_peminjam`, `jumlah`, `tanggal`) VALUES
-(8, 1, 2000, '2015-04-14');
+(8, 1, 2000, '2015-04-14'),
+(9, 1, 0, '2015-04-15'),
+(10, 1, 0, '2015-04-15');
 
 -- --------------------------------------------------------
 
@@ -102,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_payment` (
   PRIMARY KEY (`id_payment`,`id_record`),
   KEY `id_kasir` (`id_kasir`),
   KEY `id_record` (`id_record`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `transaksi_payment`
@@ -116,7 +119,8 @@ INSERT INTO `transaksi_payment` (`id_payment`, `total_dibayarkan`, `id_kasir`, `
 (4, 50000, 1, 71),
 (5, 50000, 1, 71),
 (6, 50000, 1, 71),
-(7, 50000, 1, 71);
+(7, 50000, 1, 71),
+(28, 920000, 1, 72);
 
 -- --------------------------------------------------------
 
@@ -137,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_record` (
   KEY `id_petugas_2` (`id_petugas`),
   KEY `id_petugas_3` (`id_petugas`),
   KEY `id_pelayanan` (`id_pelayanan`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=72 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
 
 --
 -- Dumping data for table `transaksi_record`
@@ -154,7 +158,8 @@ INSERT INTO `transaksi_record` (`id_record`, `id_petugas`, `tanggal`, `harga_tot
 (46, 1, '2015-04-14', 50000, 1, 1, 1),
 (57, 1, '2015-04-14', 50000, 1, 1, 1),
 (58, 1, '2015-04-14', 40000, 2, 2, 1),
-(71, 1, '2015-04-14', 50000, 1, 1, 1);
+(71, 1, '2015-04-14', 50000, 1, 1, 1),
+(72, 1, '2015-04-15', 40000, 2, 23, 0);
 
 -- --------------------------------------------------------
 
