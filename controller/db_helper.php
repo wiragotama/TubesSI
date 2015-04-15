@@ -13,7 +13,7 @@ function get_all_user(){
 		exit();
 	}
 
-	$result = $mysqli->query("SELECT * FROM user");
+	$result = $mysqli->query("SELECT * FROM user where role='karyawan' ");
 	$rows = array();
 	for ($i = 0; $i < $result->num_rows; ++$i) {
 		$row = $result->fetch_assoc();
