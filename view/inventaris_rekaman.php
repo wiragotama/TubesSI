@@ -33,8 +33,6 @@
 				<div class="row">
 					<div class="page-header">
 					   <h1> Barang Tersedia </h1>
-					   <p id="currentDateTime"> &nbspSekarang 16 Maret 2015, 10:00AM </p>
-					   <p id="currentDateTime"> &nbsp*Order Terakhir 20 Februari 2015, 11:00AM </p>
 					</div>
 					
 					<table class="table table-hover">
@@ -47,32 +45,45 @@
 						        <th>Tanggal Pembelian Terakhir</th>
 					      	</tr>
 				   		</thead>
-				   		<tbody>
-					      	<tr>	
-					      		<td>1</td>
-						        <td>Shampoo anti dandruf</td>
-						        <td>20.000</td>
-						        <td>10</td>
-						        <td>10 Maret 2015</td>
-				     		<tr>
-				   		</tbody>
-				   		<tbody>
-					      	<tr>
-					      		<td>2</td>
-						        <td>Shampoo anti kusam</td>
-						        <td>25.000</td>
-						        <td>5</td>
-						        <td>15 Maret 2015</td>
-				     		<tr>
-				   		</tbody>
+				   		<?php
+				   			$myfile = fopen("../controller/logged.txt", "r") or die("Unable to open file!");
+							$username = fgets($myfile);
+							$id_logged = fgets($myfile);
+							$role = fgets($myfile);
+							fclose($myfile);
+
+				   			$con=mysqli_connect("localhost","root","","tubessi");
+							// Check connection
+							if (mysqli_connect_errno()) {
+							  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							}
+							else {
+								$result = mysqli_query($con, "SELECT * from `inventaris` ORDER BY id_inventaris ASC");
+								while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+									$tanggal = $row["tanggal_pembelian"];
+									$jumlah = $row["jumlah_barang"];
+									$harga = $row["harga_satuan"];
+									$nama = $row["nama"];
+									$id = $row["id_inventaris"];
+
+									echo "<tbody>";
+									echo "<tr>";
+									echo "<td>".$id."</td>";
+									echo "<td>".$nama."</td>";
+									echo "<td>".$harga."</td>";
+									echo "<td>".$jumlah."</td>";
+									echo "<td>".$tanggal."</td>";
+									echo "</tr>";
+									echo "</tbody>";
+								}
+							}
+				   		?>
 					</table>
 				</div>
 
 				<div class="row">
 					<div class="page-header">
 					   <h1> Barang Terpakai </h1>
-					   <p id="currentDateTime"> &nbspSekarang 16 Maret 2015, 10:00AM </p>
-					   <p> *Pembayaran terakhir dilakukan pada tanggal 28 Februari 2015, 10:00AM </p>
 					</div>
 					
 					<table class="table table-hover">
@@ -83,32 +94,48 @@
 						        <th>Jumlah Pakai</th>
 					      	</tr>
 				   		</thead>
-				   		<tbody>
-					      	<tr>	
-					      		<td>1</td>
-						        <td>Shampoo anti dandruf</td>
-						        <td>2</td>
-				     		<tr>
-				   		</tbody>
-				   		<tbody>
-					      	<tr>
-					      		<td>2</td>
-						        <td>Shampoo anti kusam</td>
-						        <td>4</td>
-				     		<tr>
-				   		</tbody>
-					</table>
+				   		<?php
+				   			$myfile = fopen("../controller/logged.txt", "r") or die("Unable to open file!");
+							$username = fgets($myfile);
+							$id_logged = fgets($myfile);
+							$role = fgets($myfile);
+							fclose($myfile);
+							$total_pembayaran =0;
+				   			$con=mysqli_connect("localhost","root","","tubessi");
+							// Check connection
+							if (mysqli_connect_errno()) {
+							  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							}
+							else {
+								$result = mysqli_query($con, "SELECT * from `inventaris` ORDER BY id_inventaris ASC");
+								while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+									$jumlah = $row["jumlah_terpakai"];
+									$nama = $row["nama"];
+									$id = $row["id_inventaris"];
+									$harga = $row["harga_satuan"];
+									$total_pembayaran += $harga * $jumlah; 
+									echo "<tbody>";
+									echo "<tr>";
+									echo "<td>".$id."</td>";
+									echo "<td>".$nama."</td>";
+									echo "<td>".$jumlah."</td>";
+									echo "</tr>";
+									echo "</tbody>";
+								}
+							}
+				   		
+				echo'	</table>
 				</div>
 
 				<div class="row">
-					<label for="totalPembyaranBarang"> Total Pembayaran (Rp) : <label>
-					<p id="totalPembyaranBarang"> <b> 165.000 </b> </p>
-				</div>
-
-				<form id="form transaksi" onclick="validateScript" onsubmit="#PHP" class="form-inline"> 
+					<label for="totalPembyaranBarang"> Total Pembayaran (Rp) : <label>';
+					echo '<p id="totalPembyaranBarang"> <b>'.$total_pembayaran.'</b> </p>
+				</div>';
+				?>
+				<form id="form transaksi" action="../controller/bayar_inventaris.php" class="form-inline"> 
 					<div class="row">
 						<div id="formButtonsArea">
-							<button type="button" class="btn btn-success"> Bayar </button>
+							<button type="submit" class="btn btn-success"> Bayar </button>
 						</div>
 					</div>
 				</form>

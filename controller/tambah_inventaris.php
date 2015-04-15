@@ -27,9 +27,9 @@ $result = mysqli_query($con, "SELECT * FROM inventaris where id_inventaris=".$NI
 }
 	
 $total_barang = $jum_barang + $JB;	
-
+$date = date("Y-m-d");
 	
-mysqli_query($con,"UPDATE inventaris SET jumlah_barang= '$total_barang' where id_inventaris='$NI'");
+mysqli_query($con,"UPDATE inventaris SET jumlah_barang= '$total_barang', tanggal_pembelian ='$date' where id_inventaris='$NI'");
 
 mysqli_close($con);
 
