@@ -5,7 +5,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+	<script type="text/javascript" src="../js/validation.js"> </script>
 	<head>
 		<meta charset="utf-8">
 		<title>Sunan Salon Accounting and Inventory System</title>
@@ -30,50 +30,6 @@
 		<?php require_once('navbar.php'); ?>
 		<!-- end navigation -->
 
-		<!-- start home -->
-		<section id="home" class="text-center">
-		  <div class="templatemo_headerimage">
-		    <div class="flexslider">
-		      <ul class="slides">
-		        <li>
-		        	<img src="../images/slider/1.jpg" alt="Slide 1">
-		        	<div class="slider-caption">
-					    <div class="templatemo_homewrapper">
-					      <h1 class="wow fadeInDown" data-wow-delay="2000">SUNAN SALON</h1>
-					      <h2 class="wow fadeInDown" data-wow-delay="2000">
-							<span class="rotate">membuat orang lebih percaya diri</span>
-						</h2>
-						<p>kualitas-mode-ramah</p>
-				  	</div>
-		        </li>
-		        <li>
-		        	<img src="../images/slider/2.jpg" alt="Slide 2">
-		        	<div class="slider-caption">
-					    <div class="templatemo_homewrapper">
-					      <h1 class="wow fadeInDown" data-wow-delay="2000">SUNAN SALON</h1>
-					      <h2 class="wow fadeInDown" data-wow-delay="2000">
-							<span class="rotate">membuat orang lebih percaya diri</span>
-						</h2>
-						<p>kualitas-mode-ramah</p>
-				  	</div>
-		        </li>
-		        <li>
-		        	<img src="../images/slider/3.jpg" alt="Slide 3">
-		        	<div class="slider-caption">
-					    <div class="templatemo_homewrapper">
-					      <h1 class="wow fadeInDown" data-wow-delay="2000">SUNAN SALON</h1>
-					      <h2 class="wow fadeInDown" data-wow-delay="2000">
-							<span class="rotate">membuat orang lebih percaya diri</span>
-						</h2>
-						<p>kualitas-mode-ramah</p>
-				  	</div>
-		        </li>
-		      </ul>
-		    </div>
-		  </div>				
-		</section>
-		<!-- end home -->
-
 		<!-- start main body -->
 		<section id="about">
 			<div class="container">
@@ -83,16 +39,16 @@
 					<div class="page-header">
 					   <h1> Order Inventaris Baru </h1>
 					</div>
-					<form method="post" id="formOrderBarang" action="../controller/save_inventaris.php" class="form-inline">
+					<form name="form-order-inventaris" method="post" id="formOrderBarang" action="../controller/save_inventaris.php" onsubmit="return validateOrderInventaris()" class="form-inline">
 						<div class="row" id="transaksi-record-1">
 							<div class="col-xs-3">
-							    <input name=NamaBarang type="text" class="form-control" placeholder="nama barang">
+							    <input name="NamaBarang" type="text" class="form-control" placeholder="nama barang">
 							</div> 
 							<div class="col-xs-3">
-							    <input name=JumlahBarang type="text" class="form-control" placeholder="jumlah barang">
+							    <input name="JumlahBarang" type="text" class="form-control" placeholder="jumlah barang">
 							</div>
 							<div class="col-xs-3">
-							    <input name=HargaBarang type="text" class="form-control" placeholder="harga satuan (Rp)">
+							    <input name="HargaBarang" type="text" class="form-control" placeholder="harga satuan (Rp)">
 							</div>
 						</div>
 
@@ -110,7 +66,7 @@
 					   <h1> Tambah Barang </h1>
 					</div>
 					
-					<form method="post" id="formOrderBarang" action="../controller/tambah_inventaris.php" class="form-inline">
+					<form name="formTambahBarang" method="post" id="formOrderBarang" action="../controller/tambah_inventaris.php" onsubmit="return validateTambahBarang()" class="form-inline">
 						<div class="row" id="transaksi-record-1">
 							<div class="col-xs-2">
 							    <select name="NamaInventaris" class="form-control">

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+	<script type="text/javascript" src="../js/validation.js"> </script>
 	<head>
 		<meta charset="utf-8">
 		<title>Sunan Salon Accounting and Inventory System</title>
@@ -24,50 +24,6 @@
 		<!-- start navigation -->
 		<?php require_once('navbar.php'); ?>
 		<!-- end navigation -->
-
-		<!-- start home -->
-		<section id="home" class="text-center">
-		  <div class="templatemo_headerimage">
-		    <div class="flexslider">
-		      <ul class="slides">
-		        <li>
-		        	<img src="../images/slider/1.jpg" alt="Slide 1">
-		        	<div class="slider-caption">
-					    <div class="templatemo_homewrapper">
-					      <h1 class="wow fadeInDown" data-wow-delay="2000">SUNAN SALON</h1>
-					      <h2 class="wow fadeInDown" data-wow-delay="2000">
-							<span class="rotate">membuat orang lebih percaya diri</span>
-						</h2>
-						<p>kualitas-mode-ramah</p>
-				  	</div>
-		        </li>
-		        <li>
-		        	<img src="../images/slider/2.jpg" alt="Slide 2">
-		        	<div class="slider-caption">
-					    <div class="templatemo_homewrapper">
-					      <h1 class="wow fadeInDown" data-wow-delay="2000">SUNAN SALON</h1>
-					      <h2 class="wow fadeInDown" data-wow-delay="2000">
-							<span class="rotate">membuat orang lebih percaya diri</span>
-						</h2>
-						<p>kualitas-mode-ramah</p>
-				  	</div>
-		        </li>
-		        <li>
-		        	<img src="../images/slider/3.jpg" alt="Slide 3">
-		        	<div class="slider-caption">
-					    <div class="templatemo_homewrapper">
-					      <h1 class="wow fadeInDown" data-wow-delay="2000">SUNAN SALON</h1>
-					      <h2 class="wow fadeInDown" data-wow-delay="2000">
-							<span class="rotate">membuat orang lebih percaya diri</span>
-						</h2>
-						<p>kualitas-mode-ramah</p>
-				  	</div>
-		        </li>
-		      </ul>
-		    </div>
-		  </div>				
-		</section>
-		<!-- end home -->
 
 		<!-- start main body -->
 		<section id="about">
@@ -119,7 +75,7 @@
 					   <h1> Tambah Pinjaman </h1>
 					</div>
 					<!-- tambah pinjaman baru -->
-					<form method="POST" id="form transaksi" action="../controller/tambahPinjaman.php" onclick="validateScript" onsubmit="#PHP" class="form-inline"> 
+					<form name="tambah-pinjaman" method="POST" id="form transaksi" action="../controller/tambahPinjaman.php" onsubmit="return validateTambahPinjaman()" class="form-inline"> 
 						<div class="row" id="transaksi-pinjaman">
 							<div class="col-xs-3">
 							    <input name="jumlah" type="text" class="form-control" placeholder="jumlah pinjaman (Rp)">

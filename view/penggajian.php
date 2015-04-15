@@ -25,50 +25,6 @@
 		<?php require_once('navbar.php'); ?>
 		<!-- end navigation -->
 
-		<!-- start home -->
-		<section id="home" class="text-center">
-		  <div class="templatemo_headerimage">
-		    <div class="flexslider">
-		      <ul class="slides">
-		        <li>
-		        	<img src="../images/slider/1.jpg" alt="Slide 1">
-		        	<div class="slider-caption">
-					    <div class="templatemo_homewrapper">
-					      <h1 class="wow fadeInDown" data-wow-delay="2000">SUNAN SALON</h1>
-					      <h2 class="wow fadeInDown" data-wow-delay="2000">
-							<span class="rotate">membuat orang lebih percaya diri</span>
-						</h2>
-						<p>kualitas-mode-ramah</p>
-				  	</div>
-		        </li>
-		        <li>
-		        	<img src="../images/slider/2.jpg" alt="Slide 2">
-		        	<div class="slider-caption">
-					    <div class="templatemo_homewrapper">
-					      <h1 class="wow fadeInDown" data-wow-delay="2000">SUNAN SALON</h1>
-					      <h2 class="wow fadeInDown" data-wow-delay="2000">
-							<span class="rotate">membuat orang lebih percaya diri</span>
-						</h2>
-						<p>kualitas-mode-ramah</p>
-				  	</div>
-		        </li>
-		        <li>
-		        	<img src="../images/slider/3.jpg" alt="Slide 3">
-		        	<div class="slider-caption">
-					    <div class="templatemo_homewrapper">
-					      <h1 class="wow fadeInDown" data-wow-delay="2000">SUNAN SALON</h1>
-					      <h2 class="wow fadeInDown" data-wow-delay="2000">
-							<span class="rotate">membuat orang lebih percaya diri</span>
-						</h2>
-						<p>kualitas-mode-ramah</p>
-				  	</div>
-		        </li>
-		      </ul>
-		    </div>
-		  </div>				
-		</section>
-		<!-- end home -->
-
 		<!-- start main body -->
 		<section id="about">
 			<div class="container">
@@ -112,6 +68,7 @@
 								while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 									$id_petugas = $row["id_petugas"];
 									$id_pelayanan = $row["id_pelayanan"];
+									$jumlah_dilayani = $row["jumlah_dilayani"];
 
 									$l = mysqli_query($con, "SELECT * from user where id_user=".$id_petugas);
 									while ($r = mysqli_fetch_array($l, MYSQL_ASSOC)) {
@@ -125,7 +82,7 @@
 									
 									$y = mysqli_query($con, "SELECT * from pelayanan where id_pelayanan=".$id_pelayanan);
 									while ($q = mysqli_fetch_array($y, MYSQL_ASSOC)) {
-										$ongkos = $q["harga"]*0.3;	
+										$ongkos = $q["harga"]*0.3*$jumlah_dilayani;	
 									}	
 									
 									$tanggal = $row["tanggal"];
@@ -134,7 +91,7 @@
 									}
 									else {
 										array_push($arrayName, $nama);
-										array_push($arrayTotalGaji, $gajiDasar);
+										array_push($arrayTotalGaji, $gajiDasar+$ongkos);
 									}
 									
 									echo "<tbody>";
